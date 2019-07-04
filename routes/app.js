@@ -10,5 +10,6 @@ app.use('/api/experiences', require('./api/experience'));
 app.use('/api/jobs', require('./api/job'));
 app.use('/api/users', require('./api/user'));
 app.use('/api/auth', require('./api/auth'));
+app.use('/api/profile', require('./api/profile'));
 
 module.exports = app;

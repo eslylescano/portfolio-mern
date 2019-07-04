@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-// @route     GET api/users
+// @route     POST api/users
 // @desc      Register user
 // @access    Public
 router.post('/', [
@@ -23,20 +23,7 @@ router.post('/', [
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const {
-            name,
-            surname,
-            email,
-            password,
-            address,
-            postcode,
-            city,
-            phone,
-            facebook,
-            twitter,
-            youtube,
-            photo
-        } = req.body;
+        const { name, email, password } = req.body;
 
         try {
             // See if user exist
@@ -46,20 +33,7 @@ router.post('/', [
                 return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
             }
 
-            user = new User({
-                name,
-                surname,
-                email,
-                password,
-                address,
-                postcode,
-                city,
-                phone,
-                facebook,
-                twitter,
-                youtube,
-                photo
-            });
+            user = new User({ name, email, password });
 
             // Encrypt password
             const salt = await bcrypt.genSalt(10);

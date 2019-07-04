@@ -22,8 +22,8 @@ router.get('/', auth, async(req, res) => {
 
 });
 
-// @route     GET api/users
-// @desc      Register user
+// @route     POST api/auth
+// @desc      Login user
 // @access    Public
 router.post('/', [
         check('email', 'Name is required').isEmail(),
