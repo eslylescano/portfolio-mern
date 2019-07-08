@@ -26,8 +26,8 @@ router.get('/', auth, async(req, res) => {
 // @desc      Login user
 // @access    Public
 router.post('/', [
-        check('email', 'Name is required').isEmail(),
-        check('password', 'Please enter a password').exists()
+        check('email', 'Please enter a valid Email').isEmail(),
+        check('password', 'Please enter a valid password').exists()
     ],
     async(req, res) => {
         const errors = validationResult(req);

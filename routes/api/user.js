@@ -10,8 +10,7 @@ const config = require('config');
 // @desc      Register user
 // @access    Public
 router.post('/', [
-        check('name', 'Name is required').not().isEmpty(),
-        check('email', 'Name is required').isEmail(),
+        check('email', 'email is required').isEmail(),
         check('password',
             'Please enter a password with 6 or more characters')
         .isLength({ min: 6 })
@@ -23,7 +22,7 @@ router.post('/', [
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { name, email, password } = req.body;
+        const { email, password } = req.body;
 
         try {
             // See if user exist
@@ -33,7 +32,7 @@ router.post('/', [
                 return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
             }
 
-            user = new User({ name, email, password });
+            user = new User({ email, password });
 
             // Encrypt password
             const salt = await bcrypt.genSalt(10);
