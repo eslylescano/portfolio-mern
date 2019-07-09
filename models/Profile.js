@@ -6,6 +6,7 @@ var ProfileSchema = new Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     name: { type: String, required: false },
     surname: { type: String, required: false },
+    date_of_birth: { type: Date, required: false },
     phone: { type: String, required: false },
     city: { type: String, required: false },
     address: { type: String, required: false },
