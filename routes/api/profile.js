@@ -28,10 +28,10 @@ router.get('/me', auth, async(req, res) => {
 });
 
 
-// @route     POST api/profile/me
+// @route     POST api/profile/
 // @desc      Create or update user profile
 // @access    Private
-router.post('/me', auth, [
+router.post('/', auth, [
     check('name', 'Name is required').not().isEmpty()
 ], async(req, res) => {
 
@@ -155,6 +155,31 @@ router.get("/user/:user_id", async(req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+
+// @route     DELETE api/profile/user/:user_id
+// @desc      DELETE profile and user
+// @access    Private
+router.delete("/", auth, async(req, res) => {
+    try {
+        //@todo - remove users posts
+
+        //Remove profile
+        await Profile.findOneAndRemove({ user: req.user.id });
+        //Remove user
+        await User.findOneAndRemove({ _id: req.user.id });
+
+        res.json({ msg: 'User deleted' });
+    } catch (err) {
+        if (err.kind == "ObjectId") {
+            res.status(400).json({ msg: "Profile not found" });
+        }
+        console.log(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+
 
 
 module.exports = router;
